@@ -75,7 +75,7 @@ GEM
       securerandom (>= 0.3)
       tzinfo (~> 2.0, >= 2.0.5)
       uri (>= 0.13.1)
-    addressable (2.8.8)
+    addressable (2.9.0)
       public_suffix (>= 2.0.2, < 8.0)
     ast (2.4.3)
     base64 (0.3.0)
@@ -125,6 +125,7 @@ GEM
       net-http (~> 0.5)
     faraday-retry (2.4.0)
       faraday (~> 2.0)
+    ffi (1.17.3-aarch64-linux-gnu)
     ffi (1.17.3-arm64-darwin)
     ffi (1.17.3-x86_64-linux-gnu)
     friendly_id (5.6.0)
@@ -216,6 +217,8 @@ GEM
       net-protocol
     net-ssh (7.3.0)
     nio4r (2.7.5)
+    nokogiri (1.19.3-aarch64-linux-gnu)
+      racc (~> 1.4)
     nokogiri (1.19.3-arm64-darwin)
       racc (~> 1.4)
     nokogiri (1.19.3-x86_64-linux-gnu)
@@ -230,6 +233,7 @@ GEM
       ast (~> 2.4.1)
       racc
     pdf-core (0.10.0)
+    pg (1.6.3-aarch64-linux)
     pg (1.6.3-arm64-darwin)
     pg (1.6.3-x86_64-linux)
     pp (0.6.3)
@@ -385,9 +389,11 @@ GEM
     tailwindcss-rails (4.4.0)
       railties (>= 7.0.0)
       tailwindcss-ruby (~> 4.0)
+    tailwindcss-ruby (4.1.18-aarch64-linux-gnu)
     tailwindcss-ruby (4.1.18-arm64-darwin)
     tailwindcss-ruby (4.1.18-x86_64-linux-gnu)
     thor (1.5.0)
+    thruster (0.1.19-aarch64-linux)
     thruster (0.1.19-arm64-darwin)
     thruster (0.1.19-x86_64-linux)
     timeout (0.6.1)
@@ -419,6 +425,7 @@ GEM
     zeitwerk (2.8.1)
 
 PLATFORMS
+  aarch64-linux
   arm64-darwin-25
   x86_64-linux
 
@@ -458,4 +465,4 @@ DEPENDENCIES
   web-console
 
 BUNDLED WITH
-  4.0.3
+  4.0.10
