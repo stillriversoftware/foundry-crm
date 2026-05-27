@@ -31,7 +31,10 @@
       "Bash(gh api:*)",
       "Bash(git rm:*)",
       "Bash(gh pr view:*)",
-      "Bash(gh pr diff:*)"
+      "Bash(gh pr diff:*)",
+      "Bash(gh pr *)",
+      "Bash(grep -v '^$')",
+      "Bash(echo \"EXIT: $?\")"
     ],
     "deny": [],
     "ask": []
