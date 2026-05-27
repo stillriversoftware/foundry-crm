@@ -45,7 +45,7 @@ gem "image_processing", "~> 2.0"
 gem "honeybadger", "~> 6.6"
 
 # For human-readable URL slugs
-gem "friendly_id", "~> 5.5"
+gem "friendly_id", "~> 5.7"
 
 # AI chat widget
 gem "ruby_llm"
