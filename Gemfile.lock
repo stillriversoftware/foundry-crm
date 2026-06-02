@@ -135,7 +135,7 @@ GEM
       raabro (~> 1.4)
     globalid (1.3.0)
       activesupport (>= 6.1)
-    honeybadger (6.6.1)
+    honeybadger (6.6.2)
       logger
       ostruct
     hotwire-spark (0.1.13)
