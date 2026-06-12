@@ -42,7 +42,7 @@ gem "thruster", require: false
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 gem "image_processing", "~> 2.0"
 
-gem "honeybadger", "~> 6.8"
+gem "honeybadger", "~> 6.9"
 
 # For human-readable URL slugs
 gem "friendly_id", "~> 5.7"
