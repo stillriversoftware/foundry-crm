@@ -171,7 +171,7 @@ jobs:
 
       - name: Set up Node.js
         if: steps.verify.outputs.rubocop_failed == 'true'
-        uses: actions/setup-node@v6
+        uses: actions/setup-node@v7
         with:
           node-version: lts/*
 
