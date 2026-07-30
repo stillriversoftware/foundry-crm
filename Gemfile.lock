@@ -144,7 +144,6 @@ GEM
       zeitwerk
     i18n (1.15.2)
       concurrent-ruby (~> 1.0)
-    image_processing (2.0.2)
     importmap-rails (2.2.3)
       actionpack (>= 6.0.0)
       activesupport (>= 6.0.0)
@@ -433,7 +432,6 @@ DEPENDENCIES
   friendly_id (~> 5.7)
   honeybadger (~> 6.9)
   hotwire-spark
-  image_processing (~> 2.0)
   importmap-rails
   jbuilder
   kamal
