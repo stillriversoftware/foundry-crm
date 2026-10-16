@@ -11,7 +11,7 @@ concurrency:
 
 jobs:
   scan:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
 
     steps:
       - name: Checkout code
@@ -34,7 +34,7 @@ jobs:
         run: bin/importmap audit
 
   lint:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     env:
       RUBOCOP_CACHE_ROOT: tmp/rubocop
     steps:
@@ -62,7 +62,7 @@ jobs:
         run: bin/rubocop -f github
 
   test:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
 
     services:
       postgres:
@@ -96,7 +96,7 @@ jobs:
         run: bin/rails db:test:prepare test
 
   system-test:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
 
     services:
       postgres:
@@ -138,7 +138,7 @@ jobs:
           if-no-files-found: ignore
 
   autofix_lint:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     needs: [lint]
     if: always() && needs.lint.result == 'failure' && github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository
     concurrency:
@@ -208,7 +208,7 @@ jobs:
           fi
 
   notify_checks_failed:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     needs: [scan, lint, test, system-test]
     if: failure() && github.event_name == 'push'
 

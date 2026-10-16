@@ -12,7 +12,7 @@ concurrency:
 
 jobs:
   deploy:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     if: github.event.workflow_run.conclusion == 'success'
 
     env:
@@ -198,7 +198,7 @@ jobs:
             View details: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
 
   notify_deploy_failed:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     needs: [deploy]
     if: failure()
 
