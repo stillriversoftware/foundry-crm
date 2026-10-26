@@ -134,7 +134,7 @@ GEM
       raabro (~> 1.4)
     globalid (1.4.0)
       activesupport (>= 6.1)
-    honeybadger (6.9.3)
+    honeybadger (6.10.0)
       logger
       ostruct
     hotwire-spark (0.1.13)
@@ -428,7 +428,7 @@ DEPENDENCIES
   capybara
   debug
   friendly_id (~> 5.7)
-  honeybadger (~> 6.9)
+  honeybadger (~> 6.10)
   hotwire-spark
   importmap-rails
   jbuilder

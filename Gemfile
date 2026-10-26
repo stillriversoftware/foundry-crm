@@ -39,7 +39,7 @@ gem "kamal", require: false
 # Add HTTP asset caching/compression and X-Sendfile acceleration to Puma [https://github.com/basecamp/thruster/]
 gem "thruster", require: false
 
-gem "honeybadger", "~> 6.9"
+gem "honeybadger", "~> 6.10"
 
 # For human-readable URL slugs
 gem "friendly_id", "~> 5.7"
