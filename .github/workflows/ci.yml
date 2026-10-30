@@ -4,7 +4,6 @@ on:
   pull_request:
   push:
     branches: [ main ]
-  workflow_dispatch:
 
 concurrency:
   group: ci-${{ github.ref_name }}
@@ -148,7 +147,6 @@ jobs:
     permissions:
       contents: write
       pull-requests: read
-      actions: write
 
     steps:
       - name: Checkout PR branch
@@ -156,6 +154,9 @@ jobs:
         with:
           ref: ${{ github.head_ref }}
           fetch-depth: 1
+          # Pushes made with GITHUB_TOKEN leave the PR's CI run waiting for approval,
+          # which blocks the merge under branch protection. A PAT push runs CI normally.
+          token: ${{ secrets.AUTOFIX_PUSH_TOKEN }}
 
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
@@ -167,7 +168,6 @@ jobs:
         run: bundle exec rubocop -A --format simple
 
       - name: Commit and push fixes
-        id: push
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
@@ -176,17 +176,7 @@ jobs:
           else
             git commit -am "Auto-fix RuboCop violations"
             git push
-            echo "pushed=true" >> $GITHUB_OUTPUT
           fi
-
-      # Pushes made with GITHUB_TOKEN don't trigger workflows, so the fixed commit
-      # would never get the checks branch protection requires. workflow_dispatch is
-      # the one event GITHUB_TOKEN is allowed to trigger.
-      - name: Run CI on the fixed commit
-        if: steps.push.outputs.pushed == 'true'
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: gh workflow run ci.yml --repo "${{ github.repository }}" --ref "${{ github.head_ref }}"
 
   notify_checks_failed:
     runs-on: ubuntu-26.04
