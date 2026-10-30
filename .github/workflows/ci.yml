@@ -154,56 +154,27 @@ jobs:
         with:
           ref: ${{ github.head_ref }}
           fetch-depth: 1
+          # Pushes made with GITHUB_TOKEN leave the PR's CI run waiting for approval,
+          # which blocks the merge under branch protection. A PAT push runs CI normally.
+          token: ${{ secrets.AUTOFIX_PUSH_TOKEN }}
 
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
           bundler-cache: true
 
-      - name: Verify RuboCop fails
-        id: verify
-        run: |
-          if bundle exec rubocop --format simple > /dev/null 2>&1; then
-            echo "rubocop_failed=false" >> $GITHUB_OUTPUT
-          else
-            echo "rubocop_failed=true" >> $GITHUB_OUTPUT
-          fi
-
-      - name: Set up Node.js
-        if: steps.verify.outputs.rubocop_failed == 'true'
-        uses: actions/setup-node@v7
-        with:
-          node-version: lts/*
-
-      - name: Install Claude Code
-        if: steps.verify.outputs.rubocop_failed == 'true'
-        run: npm install -g @anthropic-ai/claude-code@latest
-
+      # Fails without pushing when offenses remain that RuboCop can't autocorrect.
       - name: Auto-fix RuboCop violations
-        if: steps.verify.outputs.rubocop_failed == 'true'
-        timeout-minutes: 15
-        env:
-          CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
-        run: |
-          claude -p "Run 'bundle exec rubocop -a' to auto-correct what it can. Then run 'bundle exec rubocop' to check for remaining violations. For any remaining offenses, read the failing files and fix them manually. Do not add explanatory comments. Only add comments for non-obvious design decisions if absolutely necessary. Run 'bundle exec rubocop' again to confirm all violations are resolved." \
-            --allowedTools "Edit,Read,Bash(bundle exec rubocop*),Glob,Grep"
-
-      - name: Verify RuboCop passes after auto-fix
-        if: steps.verify.outputs.rubocop_failed == 'true'
-        run: bundle exec rubocop --format simple
+        run: bundle exec rubocop -A --format simple
 
       - name: Commit and push fixes
-        if: steps.verify.outputs.rubocop_failed == 'true'
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          if git diff --quiet && git diff --cached --quiet; then
+          if git diff --quiet; then
             echo "No changes to commit"
           else
-            git add -A
-            git commit -m "Auto-fix RuboCop violations
-
-          Co-Authored-By: Claude Code <noreply@anthropic.com>"
+            git commit -am "Auto-fix RuboCop violations"
             git push
           fi
 
